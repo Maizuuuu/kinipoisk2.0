@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- место для подключения базового шаблона -->
+
+
+<!-- наполнение страницы фильма -->
+
+<div class="movie-page">
+    <div class="movie-poster-film">
+      <img src="{{ film.poster }}" alt="Poster" />
+    </div>
+  
+    <div class="movie-info-film">
+      <h1>
+        {{ film.title }}
+      </h1>
+      <p>
+        <strong>Год:</strong>
+        {{ film.year }}
+      </p>
+      <p>
+        <strong>Жанры:</strong>
+        {{ film.genres }}
+      </p>
+      <p>
+        <strong>Страна:</strong>
+        {{ film.country }}
+      </p>
+      <p>
+        <strong>Описание:</strong>
+        {{ film.description }}
+      </p>
+      <p>
+        <strong>Длительность:</strong>
+        {{ film.duration }} минут
+      </p>
+      <p>
+        <strong>Рейтинг:</strong>
+        <span class="highlight">
+            {{ film.rating }}
+          </span>
+      </p>
+      <p>
+        <strong>Возрастной рейтинг:</strong>
+        {{ film.age_rating }}+
+      </p>
+    </div>
+  </div>
+{% endblock %}

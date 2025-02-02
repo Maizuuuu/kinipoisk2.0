@@ -1,0 +1,40 @@
+<!-- место для подключения базового шаблона -->
+{% extends "base.html" %}
+
+{% block content %}
+<!-- наполнение главной страницы -->
+<div class="films-box">
+
+    <!-- в ссылке вместо id подставить id фильма -->
+     {% for film in films %}
+    <a href="/films/{{ film.id }}">
+      <div class="movie-card">
+        <img src="{{ film.poster }}" alt="Poster" class="movie-poster" />
+        <div class="movie-info">
+          <h3>{{ film.title }}</h3>
+          <p>Страна: {{ film.country }}</p>
+          <p>Год: {{ film.year }}</p>
+          <p class="rating">Рейтинг: {{ film.rating }}</p>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+    <!-- таких карточек много .... -->
+  
+  </div>
+  
+  <div class="pagination">
+    <!-- место для настройки пагинации -->
+    {% if page > 1 %}
+    <a href="/pages/{{ page - 1 }}">&laquo; Назад</a>
+    {% endif %}
+
+    {% for num in range(1, 11) %}
+        <a href="/pages/{{ num }}" class="{% if page == num %}active{% endif %}">{{ num }}</a>
+    {% endfor %}
+
+    {% if page < 10 %}
+        <a href="/pages/{{ page + 1 }}">Вперед &raquo;</a>
+    {% endif %}
+  </div>
+  {% endblock %}
