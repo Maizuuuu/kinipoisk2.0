@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import sqlite3
 
 app = Flask("main")
@@ -39,6 +39,14 @@ def get_films_list(page=1, limit=25, offset=25):
     data = q.fetchall()
     return [Film(*d) for d in data]
 
+def search(text):
+    con = sqlite3.connect(db_name)
+    sql = f"""SELECT * FROM movie
+    WHERE title LIKE "%{text}%" OR genres LIKE "%{text}%" OR country LIKE "%{text}%" """
+    q = con.execute(sql)
+    data = q.fetchall()
+    return [Film(*d) for d in data]
+
 def get_film_by_id(id):
     con = sqlite3.connect(db_name)
     sql = """SELECT * FROM movie
@@ -63,5 +71,10 @@ def film(id):
     film = get_film_by_id(id)
     return render_template("film.html", film = film)
 
-
+@app.route("/search", methods = ['POST'])
+def search_page():
+    form = request.form
+    text = form.get("search")
+    films = search(text)
+    return render_template("search.html", films=films, search = text)
 app.run(host="0.0.0.0", port=8080, debug=True)
