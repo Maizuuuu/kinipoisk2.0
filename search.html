@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="films-box">
+
+     {% for film in films %}
+        <a href="/films/{{ film.id }}">
+        <div class="movie-card">
+            <img src="{{ film.poster }}" alt="Poster" class="movie-poster" />
+            <div class="movie-info">
+            <h3>{{ film.title }}</h3>
+            <p>Страна: {{ film.country }}</p>
+            <p>Год:{{ film.year }}</p>
+            <p class="rating">Рейтинг: {{ film.rating }}</p>
+            </div>
+        </div>
+        </a>
+   
+    {% endfor %}
+  
+  </div>
+  {% endblock %}
